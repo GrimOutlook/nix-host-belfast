@@ -20,3 +20,5 @@ update:
 check:
   nix flake check
 
+check-local PATH="/home/grim/nix-config":
+  nix flake check --no-build --override-input nix-config path:{{PATH}}
