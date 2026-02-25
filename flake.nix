@@ -18,23 +18,26 @@
         nix-config.modules.flake.host-info
         (nix-config + "/modules/flake/systems.nix")
       ];
-      host-info.flake = "github:GrimOutlook/nix-host-belfast";
-      name = "belfast";
+
+      modules = [
+        "dev"
+        "networking"
+        "wsl"
+      ];
+
+      host-info = {
+        flake = "github:GrimOutlook/nix-host-belfast";
+        name = "belfast";
+      };
+
       nixos = {
-        modules = with nix-config.modules.nixos; [
-          dev
-          wsl
-        ];
         system = {
           autoUpgrade.enable = true;
           stateVersion = "25.05";
         };
       };
+
       home = {
-        modules = with nix-config.modules.homeManager; [
-          dev
-          networking
-        ];
         home.stateVersion = "25.11";
       };
     };
