@@ -16,7 +16,7 @@
       imports = [
         nix-config.modules.flake.hosts
         nix-config.modules.flake.host-info
-        (nix-config + "/modules/flake/systems.nix")
+        (nix-config + "/flakes/systems.nix")
       ];
 
       modules = [
@@ -25,9 +25,9 @@
         "wsl"
       ];
 
-      host-info = {
-        flake = "github:GrimOutlook/nix-host-belfast";
+      host-info = rec {
         name = "belfast";
+        flake = "github:GrimOutlook/nix-host-${name}";
       };
 
       nixos = {

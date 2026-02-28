@@ -1,24 +1,13 @@
-hostname := "belfast"
-export NH_FLAKE := "github:GrimOutlook/nix-host-{{hostname}}"
+hostname := "taipei"
+nix-config-local := "/home/grim/nix-config"
+nix-host-justfile-url := \
+  "https://raw.githubusercontent.com/GrimOutlook/nix-config/main/just/nix-host.just"
 
 default:
   just --list
 
-us: update home
+import? ".just/nix-host.just"
 
-alias switch := home
-
-home:
-  nh home switch . -c {{hostname}}
-
-os:
-  nh os switch . -H {{hostname}}
-
-update:
-  nix flake update
-
-check:
-  nix flake check
-
-check-local PATH="/home/grim/nix-config":
-  nix flake check --no-build --override-input nix-config path:{{PATH}}
+fetch:
+  mkdir -p .just/
+  curl {{nix-host-justfile-url}} --output .just/nix-host.just
